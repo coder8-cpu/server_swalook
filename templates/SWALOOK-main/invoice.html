@@ -1,0 +1,400 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="icon" type="image/x-icon" href="{%static 'images/circular logo.png'%}">
+    <meta charset="utf-8">
+    <title>SwaLook-Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- can I -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.multiselect.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{%static 'css/invoicecss.css'%}">
+    <link rel="stylesheet" href="{%static 'css/jquery.multiselect.css'%}">
+       <link rel="stylesheet" href="{%static 'css/dropdown.css'%}">
+<!-- yes I can -->
+
+
+    <!-- custom css -->
+
+
+    <style>
+        @media print{
+            button{
+                visibility: hidden;
+            }
+        }
+        #bttn:hover{
+            background-color: black;
+
+        }
+         #btt{
+            background-color: rgb(14, 187, 178);
+
+        }
+
+        .services-list {
+    position: absolute;
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    padding: 10px;
+    display: none;
+    overflow-y: scroll;
+    max-height: 180px;
+    z-index: 99999;
+}
+    .select-btn.open ~ .services-list {
+        display: block;
+}
+    .services-list {
+        position: absolute;
+        width: 100%;
+        margin-top: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+        padding: 10px;
+        display: none;
+        overflow-y: scroll;
+        max-height: 180px;
+        z-index: 99999;
+}
+    #serv{
+        width: 400px;
+    }
+    label{
+        display: inline-flex;
+    }
+    .service-box{
+        color: #0d6efd;
+    }
+    #searchbar{
+
+
+            border:5px solid black;
+            padding:4px;
+            border-radius: 10px;
+
+
+
+          }
+    </style>
+</head>
+<body>
+    <span id="back-button" onclick="window.location.href='back/';"><i class="fa-solid fa-circle-arrow-left"></i></span>
+    <span id="home-button" onclick="window.location.href='dashboard';"><i class="fa-solid fa-house home"></i></span>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div id="invoice">
+                <div class="toolbar hidden-print">
+
+                    <hr>
+                </div>
+                <div class="invoice">
+                    <div style="min-width: 600px">
+                        <header>
+                            <div class="row LOGOS">
+                                <div class="col company-details">
+                                    <div class="swalook">
+                                       <img src="{%static 'images/SwaLook Logo resized.png'%}" alt="" id="logo">
+                                        <img src="{%static 'images/wave-haikei.png'%}" alt="" id="wave">
+                                    </div>
+                                    <div class="vendor">
+                                        <p class="vendor-name">
+                                            {{username}}
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </header>
+
+                        <main>
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    <div class="text-gray-light">INVOICE TO:</div>
+                                    <h2 class="to">{{invoice_data.Name}}</h2>
+                                    <div class="address">{{invoice_data.Address}}</div>
+                                    <div class="email"><a href="mailto:john@example.com">{{invoice_data.Mobileno}}</a>
+                                    </div>
+                                </div>
+                                <div class="col invoice-details">
+                                    <h5 class="invoice-id">Invoice {{invoice_data.slno}}</h5>
+                                <div class="date">Date of invoice: {{invoice_data.date_time}}</div>
+
+                                    <div class="GST-Number">
+                                        {%if invoice_data.check_value == None%}
+
+
+                                        {%else%}
+                                            <span id="gst">GST-Number :</span>{{invoice_data.gst_number}}
+                                        {%endif%}
+                                    </div>
+                            </div>
+                            <div class="table-responsive" >
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th style="width: 5%;">S. No.</th>
+                                      <th style="width: 20%;">DESCRIPTION</th>
+                                      <th style="width: 10%;">PRICE</th>
+                                      <th style="width: 10%;">QUANTITY</th>
+                                      <th style="width: 10%;">DISCOUNT</th>
+                                      <th style="width: 10%;">TAXABLE AMOUNT</th>
+                                      <th style="width: 10%;">CGST(2.5%)</th>
+                                      <th style="width: 10%;">SGST(2.5%)</th>
+                                      <th style="width: 10%;background-color: #0d6efd; color:#fff">TOTAL AMOUNT</th>
+
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for i in service_obj %}
+                                    <form action="{%url 'invoice_update' %}" method="post">
+                                        {% csrf_token %}
+                                    <tr>
+                                      <td scope="col">{{i.slnoo}}</td>
+                                      <td scope="col" class="text-center">{{i.service}}</td>
+                                      <td scope="col" class="text-center" style="text-align: center;"><input type="text" name="price" value="{{i.prise}}" style="width: 100px;"></td>
+                                      <td scope="col" class="text-center"><input type="number" value="{{i.quantity}}" name="quan" style="width: 100px;"></td>
+
+                                      <td scope="col" class="text-center"><input type="text" value="{{i.dicount}}" name="discounts" style="width: 100px;"></td>
+                                      <td scope="col" class="text-center">{{i.taxableamt}}</td>
+                                      <td scope="col" class="text-center">{{i.cgst}}</td>
+                                      <td scope="col" class="text-center">{{i.sgst}}</td>
+                                      <td scope="col" class="text-center" style="width: 20%;background-color: #0d6efd; color:#fff">{{i.total}}</td>
+
+
+                                    </tr>
+
+                                    {%endfor%}
+                                    <tr>
+                                      <th colspan="2" style="width: 20%;background: #2e7d9f; color: white; font-weight: 500; font-size: 20px; padding:0.7% ">TOTAL</th>
+                                      <th style="width: 5%;padding:0.7%;">{{invoice_data.total_prise}}</th>
+
+                                      <th style="width: 10%; padding:0.7%;">{{invoice_data.total_quantity}}</th>
+
+                                      <th style="width: 10%;padding:0.7%;">{{invoice_data.total_discount}}</th>
+                                      <th style="width: 10%;padding:0.7%;">{{invoice_data.total_tax}}</th>
+                                      <th style="width: 10%;padding:0.7%;">{{invoice_data.total_cgst}}</th>
+                                      <th style="width: 10%;padding:0.7%;">{{invoice_data.total_sgst}}</th>
+                                      <th style="width: 10%;padding:0.7%;">{{invoice_data.grand_total}}</th>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div class="final">
+
+                                    <div class="amount_in_words">
+                                        <p style="font-size: 17px;"><span style="font-weight: 500; font-size: 18px;">AMOUNT IN WORDS: &#8377;</span > {{data_word}} only</p>
+                                    </div>
+
+                                    <div class="final_amount" style="margin-right: 30px;">
+                                        <p style="font-size: 17px;"><span style="font-weight: 500; font-size: 18px;">FINAL VALUE: &#8377;</span >{{invoice_data.grand_total}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+            </div>
+            <div class="button"><div class="footer-button" style="    display: flex;
+                justify-content: space-between;">
+                <div class="generate"><button type="submit"  style="background: #f0c14b;
+                    border: 1px solid;
+                    margin-top: 10px;
+                    border-color: #a88734 #9c9331 #846a29;
+                    color: black;
+                    padding: 5px;
+                    border-radius: 3px;
+                     ;" id="bttn" class="Generate_final_invoice">Update invoice</button>&nbsp;&nbsp;
+                     </div>
+
+                     <!-- <div class="services-box">
+                        <span>
+                          <input id="searchbar" onkeyup="search_animal()" type="text" pattern="[A-Z a-z]{1,}"name="search" placeholder="Search Services">
+                      </span> &nbsp;&nbsp;
+                                          <div class="select-btn"  style=" border-color: #10caca;" id="btt">
+                                                          <span class="btn-text">Click to select services</span>
+                                                          <span class="arrow-down"><i class="fa-solid fa-angle-down"></i></span>
+                                          </div>
+                                          <ul class="services-list" id="serv" >
+
+                                              <form action="add/" method="post">
+                                                  {%csrf_token%}
+                                              {% for i in service_data %}
+                                              <li class="services">
+
+
+                                                  <label>
+                                                  <span class="checkbox" style="width: 22px;
+                                                  height: 22px;
+                                                  border: 1.5px solid #2a2a2a;
+                                                  border-radius: 4px;
+                                                  display: flex;
+                                                  align-items: center;
+                                                  margin: 12px;
+                                                  justify-content: center;
+                                                  transition: all 0.3s ease-in-out;">
+                                                  <input type="checkbox" name="select" value="{{i.service}}" class="service" id="select" >
+                                                </span>
+                                                {{i.service}}</label>&nbsp;&nbsp;&#8377;
+                                                <span style="color: #0d6efd;">{{i.service_prise}}</span>
+                                              </li>
+                                              {% endfor %}
+
+                                          </ul>
+                                      </div> -->
+                                    </form>   <!-- dropdown -->
+<div class="content">
+
+    <div class="container text-left">
+      <div class="row justify-content-center">
+        <form action="add/" method="post">
+            {%csrf_token%}
+        <div class="col-md-1">
+
+          <select name="basic[]" multiple="multiple" class="1col active form-control">
+            {% for i in service_data %}
+        <option value="{{i.service}}">{{i.service}}&nbsp;{{i.service_prise}}/-</option>
+        {%endfor%}
+
+
+    </select>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+    <script >$(function() {
+
+$('select[multiple].active.1col').multiselect({
+  columns: 1,
+  placeholder: 'Click to Select Services',
+  search: true,
+  searchOptions: {
+      'default': 'Search Services'
+  },
+  selectAll: true
+});
+
+})</script>
+<!-- dropdown -->
+                     <div class="update_services"><button type="submit"  style="background: #f0c14b;
+                            border: 1px solid;
+                            margin-top: 10px;
+                            border-color: #a88734 #9c9331 #846a29;
+                            color: black;
+                            padding: 5px;
+                            border-radius: 3px;" id="bttn">Update service list</button></form>&nbsp;&nbsp;
+            </div>
+
+
+
+
+
+            </div>
+
+            <div class="update"  style="text-align: center;"><button type="submit" onclick="window.location.href='finalinvoice'" style="background: #f0c14b;
+              border: 1px solid;
+              margin-top: 10px;
+              border-color: #a88734 #9c9331 #846a29;
+              color: black;
+              padding: 5px;
+              border-radius: 3px;" id="bttn">Generate final invoice</button></div> </div>
+</div>
+<h5 style="text-align: center;">***Click on the update button after update service list***</h5>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    function search_animal() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("searchbar");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("serv");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("label")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+  </script>
+
+
+<style type="text/css">
+
+</style>
+
+
+<!--Fontawesome JS-->
+
+<script src="https://kit.fontawesome.com/eaa87c3c3f.js" crossorigin="anonymous"></script>   <!--Fontawesome Icons-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+<!-- Fontawesome JS -->
+
+<script src="https://kit.fontawesome.com/eaa87c3c3f.js" crossorigin="anonymous"></script>
+
+<!-- Custom Js  -->
+
+
+
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<!-- Custom Js  -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="{%static 'js/jquery.multiselect.js'%}"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>Book Appointment</title>
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'css/Edit_Appointment.css'%}">
+</head>
+<body>
+<div style="background-color: #556BBA;
+;">
+    <nav class="mainnav">
+       <ul>
+            <img src="{%static 'images/logo.png'%}" alt="" class="logo">
+            <li class="nav-item">
+                <a  class="" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </li>
+            <button type="button" class="btnlogout" onclick="window.location.href='logout/users'">
+                <img src="{%static 'images/Group.png'%}" alt="" class="logoutimg">
+                Logout
+            </button>
+        </ul>
+    </nav>
+
+
+</div>
+<div class="container-fluid" >
+
+    <div class="row flex-nowrap"  >
+
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 "  id="slider">
+
+
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+
+
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <div class="icon">
+                        <i class="fa-solid fa-user"></i>
+                    </li>
+                    <li class="nav-item">
+                        <span id="">Welcome,{{users}}</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="generatebill" class="nav-link align-middle px-0">
+                            <button class="menubtn1">
+                                <img src="{%static 'images/invoice.png'%}" alt="" class="GIimg"> Generate Invoice
+                            </button>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="appointment" class="nav-link align-middle px-0">
+                             <button class="menubtn2">
+                                <img src="{%static 'images/ba.png'%}" alt=""> Book Appointment
+                             </button>
+                        </a>
+                    </li>
+
+                    {%if auth%}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                             <button class="menubtn3">
+                                <img src="{%static 'images/BUA.png'%}" alt=""> Business Analysis
+                             </button>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <button class="menubtn4">
+                                <img src="{%static 'images/MI.png'%}" alt=""> Manage Inventory
+                             </button>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="staff" class="nav-link px-0 align-middle">
+                            <button class="menubtn5 d-flex align-items-center justify-content-start">
+                                <img src="{%static 'images/MS.png'%}" alt="" style="float: left;">
+                                <span class="ms-2">Manage Staff</span>
+                            </button>
+                        </a>
+
+                    </li>
+
+
+
+
+                    <li>
+                        <a href="service" class="nav-link px-0 align-middle">
+                            <button class="menubtn6">
+                                <img src="{%static 'images/MSN.png'%}" alt="" > Manage Services
+                             </button>
+                    </li>
+
+                    <li>
+                        <a href="setting" class="nav-link px-0 align-middle">
+                            <button class="menubtn7 d-flex align-items-center justify-content-start">
+                                <img src="{%static 'images/Settings.png'%}" alt="" style="float: left;">
+                                <span class="ms-2">Settings</span>
+                            </button>
+                        </a>
+
+
+
+                    </li>
+                    {%endif%}
+                </ul>
+
+            </div>
+        </div>
+        <div>
+            <form action="update" method="post" class="was-validated" id="foam" onsubmit="return validateForm()" >
+                {%csrf_token%}
+                <hi class= "mainheading">Edit Appointment </hi>
+                <div class="box">
+
+                    <div>
+
+                       <h2 class="sm">Personal Info</h2>
+                        <input type="text" class="form1" id="name" disabled pattern="[A-Z a-z]{1,}" placeholder="Enter Full Name" value="{{ap_edit.customer_name}}"  name="f_name" required="required">
+                        <div>
+                        <input type="tel" class="form2" pattern="[0-9]{10}" disabled  maxlength="10" required="required"   value="{{ap_edit.contact_number}}" id="phone_no" placeholder="Phone Number" name="l_name">
+
+
+
+                      </div>
+                      {%if ap_edit.email%}
+                      <div>
+                        <input type="email" class="form3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" placeholder="E-mail" value="{{ap_edit.email}}" required="required" name="email">
+
+                      </div>
+                      {%else%}
+                      <input type="email" class="form3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" placeholder="E-mail"  required="required" name="email">
+                      {%endif%}
+
+        </div>
+        <form>
+        <div>
+            <h3 class="sm2">Select the service Below</h3>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes()">
+                    <select>
+                        <option h3 class="sm2">Select an option</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes" >
+                    <input type="text" id="search-bar" onkeyup="filterCheckboxes()" placeholder="Search...">
+                        <span id="selected-count1"></span>
+                    <label for="select-all">
+                        <input type="checkbox" id="select-all" onclick="selectAllCheckboxes()" onchange="updateSelectedCount()"  />
+                        Select All
+                    </label>
+                    <div id="checkboxes-list" style="overflow:hidden;">
+                        {%for i in service_data%}
+
+
+                                <label for="{{i.service_data}}">
+                                    <input type="checkbox" id="{{i.service}}" name="basic[]" onchange="updateSelectedCount()"  value="{{i.service}}">{{i.service}}&nbsp;&#8377;{{i.service_prise}}
+                                </label>
+
+
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </form>
+             <div>
+                <h3 class="sm3">Select your slot</h3>
+
+                    <input type='date' onchange="validateDate()" id='mydate' class="mydate" name="datetime"></input>
+
+                  <div class="mainbox">
+
+                     <!--time-->
+                      <div id="time-slots">
+                      <!-- Time slots will be dynamically added here -->
+                      <div class="slot-container">
+                          <select id="hours-select" class="hours-select" name="hrs">
+                            <!--Options for hours (12-hour format) -->
+                            <option value=""> HRS</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+
+                          <!--and so on until 11 -->
+                          </select>
+
+                            <select id="minutes-select" name="mins">
+                               <!--Options for minutes (00 to 59) -->
+                              <option value="">MINS</option>
+                              <option value=":00">00</option>
+                              <option value=":15">15</option>
+                              <option value=":30">30</option>
+                              <option value=":45">45</option>
+                            </select>
+                            <select id="ampm-select" name="meridian">
+                          :
+                             <!--Options for AM/PM -->
+                              <option value="">AM-PM</option>
+                              <option value="AM">AM</option>
+                              <option value="PM">PM</option>
+                            </select>
+
+                      </div>
+
+
+                    </div>
+
+                  <input type="text" style="visibility: hidden;">
+
+                  </div>
+
+                  </div>
+            </div>
+            <div>
+                <button type="submit" class="btn">
+                    Update Appointment
+                </button>
+            </div>
+        <script src="{%static 'js/Edit_Appointment.js'%}"></script>
+          <script src="./GenerateInvoice.js"></script>
+
+        <script src="https://kit.fontawesome.com/ef46c9b757.js" crossorigin="anonymous"></script>
+    </script>
+        <script>
+            function updateSelectedCount1() {
+    var checkboxes = document.querySelectorAll("#checkboxes-list2 input[type='checkbox']");
+    var count = 0;
+
+    checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        count++;
+      }
+    });
+
+    var selectedCountElement = document.getElementById("selected-count1");
+    selectedCountElement.textContent = "Selected: " + count;
+  }
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    </body>
+    </html>

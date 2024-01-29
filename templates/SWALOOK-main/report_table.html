@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="{%static 'images/circular logo.png' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>report_table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+     <!-- Google fonts Section -->
+   <!-- Bootstrap Css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+
+
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- font awsome link-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+
+    .navbar {
+   color: #ffffff;
+   font-family: 'Helvetica Neue';
+
+ }
+
+ .nav-icon {
+   position: relative;
+   margin: 5px;
+ left:27.5rem;
+ top:0.2rem;
+   z-index: 100000;
+   cursor: pointer;
+ }
+
+ .line{
+     width: 1.8rem;
+   height: 0.2rem;
+   background: #000000;
+   margin-bottom: 5px;
+ }
+
+ .menu {
+   width: 11rem;
+   height: 100vh;
+   background: #fff;
+   position: fixed;
+   top: 0;
+   left: -320px;
+   transition: left .2s;
+   z-index: 100000000;
+ }
+
+ .menu-item:first-child {
+   margin-top: 5rem;
+ }
+
+ .menu--open {
+   left: 0;
+ }
+
+ .menu-item:last-child{
+   position: absolute;
+   bottom: 2.5rem;
+ }
+
+ .menu-item {
+   color: #f9f9f9;
+   width: 100%;
+   padding: 0.5rem;
+   display:flex;
+   align-items: center;
+   margin-bottom: 0.4rem;
+   box-sizing: border-box;
+   padding: 1rem;
+
+ }
+
+ .icon{
+     width: 2.5rem;
+     font-size:1.1rem;
+
+ }
+
+
+ .menu-item:hover {
+   background: #198754;
+   cursor: pointer;
+ }
+
+ .n{
+   font-size: 1rem;
+   font-weight: 400;
+
+ }
+
+
+  </style>
+
+</head>
+<body>
+
+<section class="home-section">
+  <nav>
+
+    <div class="nav-img">
+      <img src="{% static 'images/circular logo.png' %}" alt="Swalook_Logo" id="nav-logo">
+    </div>
+
+     <section class="navbar">
+  <div class="nav-icon">
+  <div class="line" ></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
+
+
+
+  <div class="menu">
+
+<div class="menu-item">
+  <div class="icon"></i>  </div>
+    <a href="/" style= "color:black; text-decoration: none;"><div class="n">Dashboard</div></a>
+
+</div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="generatebill" style="color:black; text-decoration: none;"><div class="n">Billing</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="appointment" style="color:black; text-decoration: none;"><div class="n">Appointment</div>
+      </div>
+
+
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="service" style="color:black; text-decoration: none;"><div class="n">Services</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="staff" style="color:black; text-decoration: none;"><div class="n">Staff</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="adduser" style="color:black; text-decoration: none;"><div class="n">User-staff</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="reports" style="color:black; text-decoration: none;"><div class="n">Reports</div>
+      </div>
+  <div class="menu-item">
+      <div class="icon"></i> </div>
+      <a href="setting" style="color:black;text-decoration: none;"><div class="n">Setting</div>
+      </div>
+
+
+
+
+
+  <div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="logout/users" style="color:black; text-decoration: none;"><div class="n">Log out</div></a>
+      </div>
+
+    </div>
+  </section>
+    <div class="profile-details">
+
+      <span class="admin_name" >Welcome, {{users}}</span>
+      <!--<i class='bx bxs-user-circle user-icon' style="color:#0d6efd;"></i>&nbsp;-->
+      <!--<button type="button" id="caret-btn" onclick="window.location.href='logout/user';"><i class="fa-solid fa-right-from-bracket caret"></i></button>-->
+    </div>
+
+  </nav><br><br><br><br>
+
+
+
+    <div class="table" style="padding-left: 2rem; padding-right: 2rem;">
+        <p style="font-size: 1.5rem;
+        color: black;
+        border-bottom: 3px solid #787871;
+        display: inline-block;
+        width: 18rem;
+        max-height: 40vh;
+        overflow:auto">Date:{{date}}</p>
+
+                <div class="table-responsive" style="margin-top: 0rem; padding-bottom: 0%; max-height:57vh;">
+                    <table class="table text-center" style="margin-bottom: 0%;overflow: auto;">
+                      <thead style=" background-color: #0d6efd; color:#fff; position: sticky; top:0px;">
+                        <tr >
+
+                          <th style="width: 30%;background-color: #0d6efd; color:#fff;">Name</th>
+                          <th style="width: 20%;background-color: #0d6efd; color:#fff;">Services</th>
+                          <th style="width: 20%;background-color: #0d6efd; color:#fff">Billing Amt</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {%for i in inv%}
+                        <tr>
+
+
+                          <td><span id="service">{{i.Name}}</span></td>
+                          <td><span id="duration">{{i.service_catg_name}}</span></td>
+                          <td><span id="price">&#x20B9; {{i.grand_total}}</span></td>
+
+                        </tr>
+                        {%endfor%}
+
+
+
+                        </tbody>
+                        </table>
+                        </div>
+            </div>
+        </section>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).ready(function(){
+
+var menu = $(".menu");
+var navicon = $(".nav-icon");
+var line = $(".line");
+var menuOpen;
+
+function openMenu(){
+menu.css("left", "0px");
+line.css("background", "#FFF");
+menuOpen = true;
+}
+
+function closeMenu(){
+menu.css("left", "-320px");
+line.css("background", "black");
+menuOpen = false;
+}
+
+function toggleMenu(){
+if (menuOpen) {
+  closeMenu();
+} else {
+  openMenu();
+}
+}
+
+navicon.on({
+mouseenter: function(){
+  openMenu();
+}
+});
+
+menu.on({
+mouseleave: function(){
+  closeMenu();
+}
+
+});
+
+navicon.on({
+click: function(){
+  toggleMenu();
+}
+})
+});
+
+</script>
+
+</body>
+</html>

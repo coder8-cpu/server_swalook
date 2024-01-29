@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{%static 'geninv/assets/css/styles.css'%}">
+    <link rel="stylesheet" href="{%static 'geninv/assets/css/gi.css'%}">
+
+
+    <title>Generate Invoice</title>
+</head>
+<body>
+    <nav class="nav">
+        <ul class="nav__list">
+            <a href="{% url 'appointment' %}" class="nav__link active-link">
+                <i class="ri-contacts-book-fill"></i>
+                <span class="nav__name">Appointment</span>
+            </a>
+
+            <a href="{% url 'generate_bill' %}" class="nav__link">
+              <i class="ri-bill-fill"></i>
+                <span class="nav__name">Invoice</span>
+            </a>
+            {%if auth%}
+            <a href="{% url 'business' %}" class="nav__link">
+              <i class="ri-line-chart-line"></i>
+                <span class="nav__name">Analysis</span>
+            </a>
+            {%endif%}
+            {%if auth%}
+            <a  class="nav__link">
+              <i class="ri-store-2-line"></i>
+                <span class="nav__name">Store</span>
+            </a>
+            {%endif%}
+
+
+        </ul>
+
+
+        <!-- Shapes -->
+        <div class="nav__circle-1"> </div>
+        <div class="nav__circle-2"></div>
+
+        <div class="nav__square-1"></div>
+        <div class="nav__square-2"></div>
+    </nav>
+
+    <main>
+        <nav class="mainnav">
+            <ul>
+                <img src="{%static 'bookapp/assets/sa (1).png'%}" class="logo">
+
+            </ul>
+           <ul>
+            <a href="/"><button  class="nav_button1"> Home</button></a>
+           </ul>
+           {%if auth%}
+           <ul>
+            <a href="staff"><button  class="nav_button2"> Staff</button></a>
+           </ul>
+
+           <ul>
+            <a href="service"><button  class="nav_button2"> Services</button></a>
+           </ul>
+
+           <ul>
+            <a href="setting"><button  class="nav_button3"> Settings</button></a>
+           </ul>
+           {%endif%}
+           <ul>
+            <a><button  class="nav_button4"> About Us</button></a>
+           </ul>
+
+           <ul>
+            <a href="logout/user"><button  class="logout"> Logout</button></a>
+           </ul>
+
+        </nav>
+    </main>
+    <div>
+       <l1 class="mainhead"> Generate Invoice</l1>
+     </div>
+     <l1 class="details"> <b>Customer Details</b></l1>
+     <div>
+      <form action="{% url 'invoice' %}" method="post" >
+        {%csrf_token%}
+        <input type="text" class="form1" id="name" pattern="[A-Z a-z]{1,}" placeholder="Enter Full Name" name="f_name" required="required">
+        <input type="tel" class="form2" pattern="[0-9]{10}" maxlength="10" required="required"  id="phone_no" name="mobile" placeholder="Phone Number">
+        <input type="email" class="form3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" id="email" placeholder="E-mail" name="email">
+        <textarea class="form4" rows="2" id="Address" placeholder="Address" name="address"></textarea>
+        <l1 class="service"> <b>Select the services below</b></l1>
+        <div class="custom-dropdown">
+          <!-- Trigger input for the dropdown -->
+          <div class="dropdown-input" style="margin-left: 0px;" onclick="toggleDropdown('thirdDropdownContent')">
+            <input type="text" class="btns" id="dropdownInputThird" placeholder="Select services" readonly>
+          </div>
+        
+          <!-- Dropdown content with search bar, checkboxes, and selected count -->
+          <div id="thirdDropdownContent" class="dropdown-content">
+            <input type="text" id="searchBarthird" placeholder="Search services" oninput="filterServices('third')">
+            <span id="selectedCountthird">0 selected</span>
+            <br>
+            {% for i in service_list%}
+            <label><input type="checkbox" class="third-custom-checkbox" name="basic[]" value="{{i.service}}" onchange="handleCheckboxChange('third', this)">{{i.service}}</label><br>
+            {% endfor %}
+          </div>
+        </div>
+        <script>
+          // Toggle the display of the dropdown content
+          function toggleDropdown(dropdownId) {
+            const dropdownContent = document.getElementById(dropdownId);
+            const dropdownInput = document.getElementById(`dropdownInput${dropdownId.charAt(0).toUpperCase() + dropdownId.slice(1)}`);
+        
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        
+            // Set focus on the input field when the dropdown is opened
+            if (dropdownContent.style.display === 'block') {
+              dropdownInput.focus();
+            }
+          }
+        
+          // Handle checkbox changes
+          function handleCheckboxChange(dropdown, checkbox) {
+            console.log(`Selected Services (${dropdown}):`, getSelectedServices(dropdown));
+            updateSelectedCount(dropdown);
+          }
+        
+          // Get an array of selected services
+          function getSelectedServices(dropdown) {
+            const checkboxes = document.querySelectorAll(`.${dropdown}-custom-checkbox`);
+            const selectedServices = [];
+        
+            checkboxes.forEach(checkbox => {
+              if (checkbox.checked) {
+                selectedServices.push(checkbox.value);
+              }
+            });
+        
+            return selectedServices;
+          }
+        
+          // Filter services based on the search bar input
+          function filterServices(dropdown) {
+            const searchBar = document.getElementById(`searchBar${dropdown.charAt(0).toUpperCase() + dropdown.slice(1)}`);
+            const checkboxes = document.querySelectorAll(`.${dropdown}-custom-checkbox`);
+            const searchValue = searchBar.value.toLowerCase();
+        
+            checkboxes.forEach(checkbox => {
+              const label = checkbox.parentElement; // Get the label associated with the checkbox
+              const labelText = label.textContent.toLowerCase();
+        
+              // Check if either the checkbox value or label text contains the search input
+              const matchFound = checkbox.value.toLowerCase().includes(searchValue) || labelText.includes(searchValue);
+        
+              // Hide or show based on the search input
+              label.style.display = matchFound ? 'block' : 'none';
+            });
+        
+            updateSelectedCount(dropdown);
+          }
+        
+          // Update the count of selected options
+          function updateSelectedCount(dropdown) {
+            const selectedCount = getSelectedServices(dropdown).length;
+            document.getElementById(`selectedCount${dropdown.charAt(0).toUpperCase() + dropdown.slice(1)}`).textContent = `${selectedCount} selected`;
+          }
+        </script>
+        
+
+        <div class="custom-dropdown">
+            <!-- Trigger input for the dropdown -->
+            <div class="dropdown-input" style="margin-left: 90px;" onclick="toggleDropdown('secondDropdownContent')">
+              <input type="text" class="btns" id="dropdownInputsecond" placeholder="Served by" readonly>
+            </div>
+          
+            <!-- Dropdown content with search bar, checkboxes, and selected count -->
+            <div id="secondDropdownContent" class="dropdown-content">
+              <input type="text" id="searchBarsecond" placeholder="Search services" oninput="filterServices('second')">
+              <span id="selectedCountsecond">0 selected</span>
+              <br>
+              {% for i in staff %}
+                <label><input type="checkbox" class="second-custom-checkbox" name="served_by" value="{{i.staffname}}" onchange="handleCheckboxChange('second', this)">{{i.staffname}}</label><br>
+              {% endfor %}
+            </div>
+          </div>
+          
+          <script>
+            // Toggle the display of the dropdown content
+            function toggleDropdown(dropdownId) {
+              const dropdownContent = document.getElementById(dropdownId);
+              dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            }
+          
+            // Handle checkbox changes for the second dropdown
+            function handleCheckboxChange(dropdownId, checkbox) {
+              console.log(`Selected Services (${dropdownId}):`, getSelectedServices(dropdownId));
+              updateSelectedCount(dropdownId);
+            }
+          
+            // Get an array of selected services for the second dropdown
+            function getSelectedServices(dropdownId) {
+              const checkboxes = document.querySelectorAll(`.${dropdownId}-custom-checkbox`);
+              const selectedServices = [];
+          
+              checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                  selectedServices.push(checkbox.value);
+                }
+              });
+          
+              return selectedServices;
+            }
+          
+            // Filter services based on the search bar input for the second dropdown
+            function filterServices(dropdownId) {
+              const searchBar = document.getElementById(`searchBarsecond`);
+              const checkboxes = document.querySelectorAll(`.second-custom-checkbox`);
+              const searchValue = searchBar.value.toLowerCase();
+          
+              checkboxes.forEach(checkbox => {
+                const label = checkbox.parentElement; // Get the label associated with the checkbox
+                const labelText = label.textContent.toLowerCase();
+          
+                // Check if either the checkbox value or label text contains the search input
+                const matchFound = checkbox.value.toLowerCase().includes(searchValue) || labelText.includes(searchValue);
+          
+                // Hide or show based on the search input
+                label.style.display = matchFound ? 'block' : 'none';
+              });
+          
+              updateSelectedCount('second');
+            }
+          
+            // Update the count of selected options for the second dropdown
+            function updateSelectedCount(dropdownId) {
+              const selectedCount = getSelectedServices(dropdownId).length;
+              document.getElementById(`selectedCount${dropdownId}`).textContent = `${selectedCount} selected`;
+            }
+          </script>
+          
+    <input type="text" class="form5" id="name"  placeholder="Discount (in Rupees)"   name="discount" >
+    <label>
+      <input type="radio" class="rdbtn"  name="checkbox1" value="11" onchange="toggleInputField()">
+  </label>
+  <l1 class="gst">GST Number</l1>
+
+  <div id="gstInputField" style="display: none;" class="form6">
+      <label for="gstNumber">GST Number:</label>
+      <input type="text" id="gstNumber"   name="gst-number"  value="{{gst}}">
+  </div>
+  <script>
+    function toggleInputField() {
+        var gstInputField = document.getElementById("gstInputField");
+        var gstRadio = document.querySelector('input[name="checkbox1"][value="11"]');
+
+        if (gstRadio.checked) {
+            gstInputField.style.display = "block";
+        } else {
+            gstInputField.style.display = "none";
+        }
+    }
+</script>
+
+    <button type="submit" class="submit"> Submit</button>
+  </form>
+    <script>
+      function validateForm() {
+          // Get form elements
+          var nameInput = document.getElementById('name');
+          var phoneInput = document.getElementById('phone_no');
+          var emailInput = document.getElementById('email');
+          var addressInput = document.getElementById('Address');
+          var discountInput = document.getElementById('discount');
+
+          // Get the GST radio button and input field
+          var gstRadio = document.querySelector('input[name="paymentType"][value="11"]');
+          var gstNumberInput = document.getElementById('gstNumber');
+
+          // Validate name, phone, email, and address
+          if (!nameInput.value || !phoneInput.value || !emailInput.value || !addressInput.value) {
+              alert('Please fill in all customer details.');
+              return false; // Prevent form submission
+          }
+
+          // Validate GST Number if GST payment type is selected
+          if (gstRadio.checked && !gstNumberInput.value) {
+              alert('Please provide the GST Number.');
+              return false; // Prevent form submission
+          }
+
+          // Additional validation for discount (if needed)
+          var discountValue = discountInput.value;
+          if (isNaN(discountValue) || discountValue < 0) {
+              alert('Please provide a valid discount value.');
+              return false; // Prevent form submission
+          }
+
+          // If all validations pass, you can submit the form
+          return true;
+      }
+  </script>
+<script src="{%static 'geninv/assets/js/main.js'%}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="icon" type="image/x-icon" href="{%static 'images/circular logo.png'%}">
+    <meta charset="utf-8">
+    <title>SwaLook-Invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{%static 'css/bill/invoicecss.css'%}">
+    <style>
+        @media print{
+            button{
+                visibility: hidden;
+            }
+        }
+        #bttn:hover{
+            background-color: black;
+
+        }
+    </style>
+</head>
+<body>
+    <span id="back-button" onclick="window.location.href='back/';"><i class="fa-solid fa-circle-arrow-left"></i></span>
+    <span id="home-button" onclick="window.location.href='dashboard';"><i class="fa-solid fa-house home"></i></span>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div id="invoice">
+                <div class="toolbar hidden-print">
+                    <div class="text-end">
+                        <!--href="invoice_/{{invoice_data.slno}}/"-->
+
+                        <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i><a href="invoice_/{{invoice_data.slno}}/" style="text-decoration: none; color:white;">Print & Download</a></button>
+                        <!--button type="button" class="btn btn-primary"><i class="fa-solid fa-share-nodes"></i><a style="text-decoration: none; color:white;" href="send_msg">Share</a></button-->
+                    </div>
+                    <hr>
+                </div>
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px">
+                        <header>
+                            <div class="row LOGOS">
+                                <div class="col company-details">
+                                    <div class="swalook">
+                                        <img src="{%static 'images/SwaLook Logo resized.png'%}" alt="" id="logo">
+                                        <img src="{%static 'images/wave-haikei.png'%}" alt="" id="wave">
+                                    </div>
+                                    <div class="vendor">
+                                        <p class="vendor-name">
+                                            {{username}}
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </header>
+
+                        <main style="padding-bottom: 0px;">
+                            <div class="row contacts">
+                                <div class="col invoice-to">
+                                    <div class="text-gray-light">INVOICE TO:</div>
+                                    <h2 class="to">{{invoice_data.Name}}</h2>
+                                    <div class="address">{{invoice_data.Address}}</div>
+                                    <div class="email"><a href="mailto:john@example.com">{{invoice_data.Mobileno}}</a>
+                                    </div>
+                                </div>
+                                <div class="col invoice-details">
+                                    <h5 class="invoice-id">Invoice {{invoice_data.slno}}</h5>
+                                <div class="date">Date of invoice: {{invoice_data.date_time}}</div>
+
+                                    <div class="GST-Number">
+                                        {%if invoice_data.check_value == None%}
+
+
+                                        {%else%}
+                                            <span id="gst">GST-Number :</span>{{invoice_data.gst_number}}
+                                        {%endif%}
+                                    </div>
+                            </div>
+                            <div class="table-responsive" >
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th style="width: 5%;">S. No.</th>
+                                      <th style="width: 20%;">DESCRIPTION</th>
+                                      <th style="width: 10%;">PRICE</th>
+                                      <th style="width: 10%;">QUANTITY</th>
+                                      <th style="width: 10%;">DISCOUNT</th>
+                                      <th style="width: 10%;">TAXABLE AMOUNT</th>
+                                      <th style="width: 10%;">CGST(2.5%)</th>
+                                      <th style="width: 10%;">SGST(2.5%)</th>
+                                      <th style="width: 10%;background-color: #0d6efd; color:#fff">TOTAL AMOUNT</th>
+
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for i in service_obj %}
+
+
+                                    <tr>
+                                      <td scope="col">{{i.slnoo}}</td>
+                                      <td scope="col" class="text-center">{{i.service}}</td>
+                                      <td scope="col" class="text-center" style="text-align: center;">{{i.prise}}</td>
+                                      <td scope="col" class="text-center">{{i.quantity}}</td>
+
+                                      <td scope="col" class="text-center">{{i.dicount}}</td>
+                                      <td scope="col" class="text-center">{{i.taxableamt}}</td>
+                                      <td scope="col" class="text-center">{{i.cgst}}</td>
+                                      <td scope="col" class="text-center">{{i.sgst}}</td>
+                                      <td scope="col" class="text-center" style="width: 20%;background-color: #0d6efd; color:#fff">{{i.total}}</td>
+
+
+                                    </tr>
+
+                                    {%endfor%}
+                                    <tr>
+                                      <th colspan="2" style="width: 20%;background: #2e7d9f; color: white; font-weight: 500; font-size: 20px; padding:0.7% ">TOTAL</th>
+                                      <th style="width: 5%;padding:0.7%;" class="text-center">{{invoice_data.total_prise}}</th>
+
+                                      <th style="width: 10%; padding:0.7%;"class="text-center">{{invoice_data.total_quantity}}</th>
+
+                                      <th style="width: 10%;padding:0.7%;"class="text-center">{{invoice_data.total_discount}}</th>
+                                      <th style="width: 10%;padding:0.7%;"class="text-center">{{invoice_data.total_tax}}</th>
+                                      <th style="width: 10%;padding:0.7%;"class="text-center">{{invoice_data.total_cgst}}</th>
+                                      <th style="width: 10%;padding:0.7%;"class="text-center">{{invoice_data.total_sgst}}</th>
+                                      <th style="width: 10%;padding:0.7%;"class="text-center">{{invoice_data.grand_total}}</th>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div class="final">
+
+                                    <div class="amount_in_words">
+                                        <p style="font-size: 17px;"><span style="font-weight: 500; font-size: 18px;">AMOUNT IN WORDS: &#8377;</span > {{data_word}} only</p>
+                                    </div>
+
+                                    <div class="final_amount" style="margin-right: 30px;">
+                                        <p style="font-size: 17px;"><span style="font-weight: 500; font-size: 18px;">FINAL VALUE: &#8377;</span >{{invoice_data.grand_total}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </main>
+
+                    <div class="notices" style="display: inline-block;" >
+                        <div class="notice text-center">THANK YOU ! AND VISIT AGAIN</div>
+                    </div>
+
+                        <footer style="margin-top: 5%;">This is a Digital Invoice generated by <strong>SwaLook</strong> valid without signature as well.</footer>
+                    </div>
+                    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+</style>
+
+<!--Fontawesome JS-->
+
+<script src="https://kit.fontawesome.com/eaa87c3c3f.js" crossorigin="anonymous"></script>   <!--Fontawesome Icons-->
+
+</body>
+</html>

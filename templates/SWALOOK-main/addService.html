@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'css/services.css'%}">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="{%static 'css/jquery.multiselect.css'%}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+     <!-- Google fonts Section -->
+   <!-- Bootstrap Css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+
+
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- font awsome link-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+ <style>
+
+    .navbar {
+   color: #ffffff;
+   font-family: 'Helvetica Neue';
+
+ }
+
+ .nav-icon {
+   position: relative;
+   margin: 5px;
+ left:27.5rem;
+ top:0.2rem;
+   z-index: 100000;
+   cursor: pointer;
+ }
+
+ .line{
+     width: 1.8rem;
+   height: 0.2rem;
+   background: #000000;
+   margin-bottom: 5px;
+ }
+
+ .menu {
+   width: 11rem;
+   height: 100vh;
+   background: #fff;
+   position: fixed;
+   top: 0;
+   left: -320px;
+   transition: left .2s;
+   z-index: 100000000;
+ }
+
+ .menu-item:first-child {
+   margin-top: 5rem;
+ }
+
+ .menu--open {
+   left: 0;
+ }
+
+ .menu-item:last-child{
+   position: absolute;
+   bottom: 2.5rem;
+ }
+
+ .menu-item {
+   color: #f9f9f9;
+   width: 100%;
+   padding: 0.5rem;
+   display:flex;
+   align-items: center;
+   margin-bottom: 0.4rem;
+   box-sizing: border-box;
+   padding: 1rem;
+
+ }
+
+ .icon{
+     width: 2.5rem;
+     font-size:1.1rem;
+
+ }
+
+
+ .menu-item:hover {
+   background: #198754;
+   cursor: pointer;
+ }
+
+ .n{
+   font-size: 1rem;
+   font-weight: 400;
+
+ }
+
+
+  </style>
+
+</head>
+<body>
+ <section class="home-section">
+  <nav>
+
+    <div class="nav-img">
+      <img src="{% static 'images/circular logo.png' %}" alt="Swalook_Logo" id="nav-logo">
+    </div>
+
+     <section class="navbar">
+  <div class="nav-icon">
+  <div class="line" ></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
+
+
+
+  <div class="menu">
+
+<div class="menu-item">
+  <div class="icon"></i>  </div>
+    <a href="/" style= "color:black; text-decoration: none;"><div class="n">Dashboard</div></a>
+
+</div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="generatebill" style="color:black; text-decoration: none;"><div class="n">Billing</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="appointment" style="color:black; text-decoration: none;"><div class="n">Appointment</div>
+      </div>
+
+
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="service" style="color:black; text-decoration: none;"><div class="n">Services</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="staff" style="color:black; text-decoration: none;"><div class="n">Staff</div>
+      </div>
+
+<div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="reports" style="color:black; text-decoration: none;"><div class="n">Reports</div>
+      </div>
+  <div class="menu-item">
+      <div class="icon"></i> </div>
+      <a href="setting" style="color:black;text-decoration: none;"><div class="n">Setting</div>
+      </div>
+
+
+
+
+
+  <div class="menu-item">
+      <div class="icon"></i></div>
+      <a href="logout/users" style="color:black; text-decoration: none;"><div class="n">Log out</div></a>
+      </div>
+
+    </div>
+  </section>
+    <div class="profile-details">
+
+      <span class="admin_name" >Welcome, {{users}}</span>
+      <!--<i class='bx bxs-user-circle user-icon' style="color:#0d6efd;"></i>&nbsp;-->
+      <!--<button type="button" id="caret-btn" onclick="window.location.href='logout/user';"><i class="fa-solid fa-right-from-bracket caret"></i></button>-->
+    </div>
+
+  </nav><br><br><br><br>
+<section class="service">
+<div class="service-buttom">
+  <!-- addservice modal -->
+<div class="add">
+
+<button  type="button" id="add-button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style=" background-color: #fff;
+border: 2px solid #198754;
+color: #198754;">
+    Add Service
+  </button>
+
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle" >Add Service</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="service_data/" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+            <div class="name" style="display: inline-flex; margin: 10px; ">
+                <label for="service"  style="margin-right: 1rem;">Service Name</label>
+              <input type="text" id="service" placeholder="Service Name" name="service" style="width: 17vw;  border: 2px solid rgb(45, 90, 223);"/>
+              </div>
+
+    <div class="down" style="display: flex; margin: 10px;margin: 10px;">
+      <div class="duration"  style="display: inline-flex; margin-right: 1.2rem;">
+              <label for="duration"  style="margin-right: 0.8rem;" >Duration</label>
+              <input  type="number" id="duration" placeholder=" Duration (min)" name="duration" style="width: 13vw;"/>
+              </div>
+
+              <div class="price"  style="display: inline-flex; margin-right: 1.2rem;">
+                <label for="price"  style="margin-right: 0.8rem;" >Price</label>
+                <input type="number" id="price"  placeholder="Price(₹)" name="price" style="width:9vw;" />
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" style="border:1px solid #198754;background-color:#fff;color:#198754"data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" style="border:1px solid #198754;background-color:#fff;color:#198754">Save</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete -->
+<div class="delete">
+
+  <button  type="button" id="add-button" class="btn btn-primary" data-toggle="modal" data-target="#mymodal" style="border:2px solid #198754;background-color:#fff;color:#198754;
+  position: relative;
+      top: 0.45vw;
+      margin-left: 1.5rem;
+      font-weight: 600;">
+      Delete services
+    </button>
+
+
+    <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle" >Delete Service</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+
+   <p style="border-bottom: 2px solid blueviolet; width:20rem;">Select services below to delete</p>
+   <!-- dropdown -->
+<div class="content" >
+  <form action="delete/" method="post">
+    {%csrf_token%}
+  <div class="container text-left">
+
+      <div class="col-md-1">
+
+        <select name="basic[]" multiple="multiple" class="1col active form-control"  >
+        {%for i in data%}
+          <option value="{{i.service}}">{{i.service}}</option>
+        {%endfor%}
+
+
+  </select>
+      </div>
+
+  </div>
+  </div>
+
+  <script >$(function() {
+
+  $('select[multiple].active.1col').multiselect({
+  columns: 1,
+  placeholder: 'Select Services to delete',
+  search: true,
+  searchOptions: {
+    'default': 'Search Services'
+  },
+  selectAll: true
+  });
+
+  })</script>
+  <!-- dropdown -->
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border:1px solid #198754;background-color:#fff;color:#198754">Close</button>
+            <button type="submit" class="btn btn-primary" style="border:1px solid #198754;background-color:#fff;color:#198754">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+<!-- service table -->
+
+    <div class="table" style="padding-left: 2rem; padding-right: 2rem;">
+<p style="font-size: 1.5rem;
+color: black;
+border-bottom: 3px solid #787871;
+display: inline-block;
+width: 18rem;
+max-height: 40vh;
+overflow:auto">Service Details</p>
+
+        <div class="table-responsive" style="margin-top: 0rem; padding-bottom: 0%; max-height:57vh;">
+            <table class="table text-center" style="margin-bottom: 0%;">
+              <thead style=" background-color: #0d6efd; color:#fff;">
+                <tr >
+
+                  <th style="width: 30%;background-color: #0d6efd; color:#fff;">Services</th>
+                  <th style="width: 20%;background-color: #0d6efd; color:#fff;">Duration</th>
+                  <th style="width: 20%;background-color: #0d6efd; color:#fff">Price</th>
+
+                </tr>
+              </thead>
+              <tbody style="overflow: auto;">
+                {%for i in data%}
+                <tr>
+
+
+                  <td><span id="service">{{i.service}}</span></td>
+                  <td><span id="duration">{{i.service_duration}}</span></td>
+                  <td><span id="price">&#x20B9; {{i.service_prise}}</span></td>
+
+                </tr>
+                {%endfor%}
+
+
+
+                </tbody>
+                </table>
+                </div>
+    </div>
+</section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Custom Js  -->
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+    <script src="{%static 'js/jquery.multiselect.js'%}"></script>
+
+      <script>
+        $(document).ready(function(){
+
+  var menu = $(".menu");
+  var navicon = $(".nav-icon");
+  var line = $(".line");
+  var menuOpen;
+
+  function openMenu(){
+    menu.css("left", "0px");
+    line.css("background", "#FFF");
+    menuOpen = true;
+  }
+
+  function closeMenu(){
+    menu.css("left", "-320px");
+    line.css("background", "black");
+    menuOpen = false;
+  }
+
+  function toggleMenu(){
+    if (menuOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+ navicon.on({
+    mouseenter: function(){
+      openMenu();
+    }
+  });
+
+  menu.on({
+    mouseleave: function(){
+      closeMenu();
+    }
+
+  });
+
+ navicon.on({
+    click: function(){
+      toggleMenu();
+    }
+  })
+});
+    </script>
+
+
+
+</body>
+</html>
